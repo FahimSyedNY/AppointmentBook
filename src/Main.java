@@ -1,5 +1,10 @@
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.io.File;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         boolean[][] schedule = new boolean[8][60];
         AppointmentBook a = new AppointmentBook(schedule);
         for(int i = 10; i < 15; i++) schedule[1][i] = true;
@@ -28,5 +33,35 @@ public class Main {
         System.out.println(b.makeAppointment(2,4,30));
         System.out.println("-----------------\n\n\n\n-----------------");
         b.printPeriod(4);
+        System.out.println("-----------------\n\n\n\n-----------------");
+        fufilled();
+    }
+    public static void fufilled() throws FileNotFoundException {
+        File f = new File("Schedules.txt");
+        Scanner scanner = new Scanner(f);
+        String[] currentSchedule = new String[60];
+        boolean[][] schedule = new boolean[8][60];
+        int i = 0;
+        int fufilled = 0;
+        int[] intArray = new int[3];
+        String[] stringArray = new String[3];
+        while (scanner.hasNextLine()) {
+            if (i < 8) {
+                currentSchedule = scanner.nextLine().split(" ");
+                for (int n = 0; n < 60; n++) {
+                    schedule[i][n] = Boolean.parseBoolean(currentSchedule[n]);
+                }
+                i++;
+            } else {
+                AppointmentBook app = new AppointmentBook(schedule);
+                stringArray = scanner.nextLine().split(" ");
+                for  (int n = 0; n < 3; n++) {
+                    intArray[n] = Integer.parseInt(stringArray[n]);
+                }
+                if (app.makeAppointment(intArray[0], intArray[1], intArray[2])) fufilled++;
+                i = 0;
+            }
+        }
+        System.out.println("Fulled: " + fufilled);
     }
 }
