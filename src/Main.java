@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 
@@ -34,15 +33,15 @@ public class Main {
         System.out.println("-----------------\n\n\n\n-----------------");
         b.printPeriod(4);
         System.out.println("-----------------\n\n\n\n-----------------");
-        fufilled();
+        fulfilled();
     }
-    public static void fufilled() throws FileNotFoundException {
+    public static void fulfilled() throws FileNotFoundException {
         File f = new File("Schedules.txt");
         Scanner scanner = new Scanner(f);
         String[] currentSchedule = new String[60];
         boolean[][] schedule = new boolean[8][60];
         int i = 0;
-        int fufilled = 0;
+        int fulfilled = 0;
         int[] intArray = new int[3];
         String[] stringArray = new String[3];
         while (scanner.hasNextLine()) {
@@ -58,10 +57,10 @@ public class Main {
                 for  (int n = 0; n < 3; n++) {
                     intArray[n] = Integer.parseInt(stringArray[n]);
                 }
-                if (app.makeAppointment(intArray[0], intArray[1], intArray[2])) fufilled++;
+                if (app.makeAppointment(intArray[0], intArray[1], intArray[2])) fulfilled++;
                 i = 0;
             }
         }
-        System.out.println("Fulled: " + fufilled);
+        System.out.println("Fulfilled: " + fulfilled);
     }
 }
